@@ -62,7 +62,7 @@ class ViewFurniture(APIView):
 
 # [POST] [AUTH] /api/add-furniture/
 # Auth example - [Header] "Authorization":"token 14a9fc6ce6fb99a3bfd195013a036bf5fca85478"
-# [Body] "name" "item_stock"
+# [Body] "char:name" "int:item_stock"
 # Response 201 CREATED | 400 BAD_REQUEST
 class AddFurniture(APIView):
     authentication_classes = [TokenAuthentication]
@@ -76,7 +76,7 @@ class AddFurniture(APIView):
 
 # [POST] [AUTH] /api/update-furniture/<int:pk>
 # Auth example - [Header] "Authorization":"token 14a9fc6ce6fb99a3bfd195013a036bf5fca85478"
-# [Body] "name" "item_stock"
+# [Body] "char:name" "int:item_stock"
 # Response 200 OK | 400 BAD_REQUEST
 class UpdateFurniture(APIView):
     authentication_classes = [TokenAuthentication]
@@ -91,7 +91,7 @@ class UpdateFurniture(APIView):
 
 # [DELETE] [AUTH] api/delete-furniture/<int:pk>
 # Auth example - [Header] "Authorization":"token 14a9fc6ce6fb99a3bfd195013a036bf5fca85478"
-# [Body] "name" "item_stock"
+# [Body] "char:name" "int:item_stock"
 # Response 200 OK | 400 BAD_REQUEST
 class DeleteFurniture(APIView):
     authentication_classes = [TokenAuthentication]
