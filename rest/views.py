@@ -16,9 +16,16 @@ from rest_framework import status
 from rest_framework.response import Response
 from django.shortcuts import HttpResponse
 
+# Document Viewset
+from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
+
+# Document Filter
+from django_elasticsearch_dsl_drf.filter_backends import SearchFilterBackend
+
 # Custom Models/Serializers
 from .models import Furniture
-from rest.serializers import FurnitureSerializer
+from .serializers import FurnitureSerializer, FurnitureDocumentSerializer
+from .documents import FurnitureDocument
 
 # Celery Tasks
 from .tasks import CustomTask
@@ -52,13 +59,16 @@ class CustomAuthToken(ObtainAuthToken):
 # !!cache set for 1 hour
 # show list of furnitures.. I'm not creative enough
 # Response JSON
-class ViewFurniture(APIView):
-    @method_decorator(vary_on_cookie)
-    @method_decorator(cache_page(60*60))
-    def get(self, request, format=None):
-        furniture = Furniture.objects.all()
-        serializer = FurnitureSerializer(furniture, many=True)
-        return Response(serializer.data)
+class ViewFurniture(BaseDocumentViewSet):
+    document = FurnitureDocument
+    serializer_class = FurnitureDocumentSerializer
+    filter_backends = [SearchFilterBackend]
+
+    search_fields = [
+        'id',
+        'name',
+        'item_stock'
+    ]
 
 # [POST] [AUTH] /api/add-furniture/
 # Auth example - [Header] "Authorization":"token 14a9fc6ce6fb99a3bfd195013a036bf5fca85478"
