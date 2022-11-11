@@ -54,3 +54,7 @@ Run the app
 ```bash
 python manage.py runserver
 ```
+
+## Postman
+
+https://crimson-astronaut-893583.postman.co/workspace/My-Workspace~272b82a4-d811-49e0-8c35-21508cdcbf29/collection/17787847-51d9bdc6-aa0a-46a3-a842-25414199d5ce?action=share&creator=17787847
